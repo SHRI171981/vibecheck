@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCheck</title>
+</head>
+<body>
+    
+    <div>
+        <h1>VibeCheck</h1>
+        
+        <form action="/analyze" method="POST">
+            <label for="context_input">Enter your context:</label>
+            <br>
+            <textarea 
+                placeholder="Enter your text"
+                required
+            ></textarea>
+            <br>
+
+            <input type="hidden" name="user_id" value="1">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

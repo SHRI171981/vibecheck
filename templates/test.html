@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+</head>
+<body>
+
+    <div>
+        
+        {% if not is_valid %}
+            
+            <div>
+                <h1>⚠️ Text Rejected</h1>
+                
+                <p><strong>Your Text:</strong> "{{ original_text }}"</p>
+                
+                <hr>
+
+                <div>
+                    <h3>Reason:</h3>
+                    <p>{{ feedback }}</p>
+                </div>
+                
+                <p>Please edit your text and try again.</p>
+            </div>
+
+        {% else %}
+
+            <div>
+                <h1>Analysis Complete 📊</h1>
+                
+                <p><strong>Your Text:</strong> "{{ original_text }}"</p>
+                
+                <div>
+                    <div>
+                        <h3>Sentiment</h3>
+                        <span>{{ sentiment }}</span>
+                    </div>
+
+                    <div>
+                        <h3>Score</h3>
+                        <span>{{ score }}%</span>
+                    </div>
+                </div>
+
+            </div>
+
+        {% endif %}
+
+        <br>
+        <a href="/">Analyze Another Text</a>
+
+    </div>
+
+</body>
+</html>
