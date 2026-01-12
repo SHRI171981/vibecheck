@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect
-# from scripts.rule import validate_text 
-# from scripts.analytics import analyze_context
+from scripts.rule import validate_text 
+from scripts.analytics import analyze_context
 from application import app
 
-def validate_text(text):
-    return {"is_valid": False, "feedback": "some feedback"}
+# def validate_text(text):
+#     return {"is_valid": True, "feedback": "some feedback"}
 
-def analyze_context():
-    return True, {}
+# def analyze_context(text):
+#     return {"is_valid": True, "feedback": "Good sentence", "sentiment": "Positive", "score": 69}
 
 @app.route('/')
 def home():
@@ -17,6 +17,7 @@ def home():
 def analyze():
     if request.method == 'POST':
         text_input = request.form.get('context')
+        print(text_input)
         user_id = request.form.get('user_id')        
         validation_response = validate_text(text_input)
         if not validation_response['is_valid']:
