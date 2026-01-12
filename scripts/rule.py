@@ -6,7 +6,7 @@ def validate_text(context):
         "score": 0,
         "context" : context
     }
-    MIN_LENGTH = 10
+    MIN_LENGTH = 5
     MAX_LENGTH = 50
     cuss_words = ['asshole','cunt','fucker','fuck','mf','bitch','motherfucker']
     context = context.lower()
