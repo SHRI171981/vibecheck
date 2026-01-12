@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from scripts.rule import validate_text 
-from scripts.analytics import analyze_context
+from scripts.inference import predict_sentiment
 from application import app
 
 # def validate_text(text):
@@ -17,7 +17,6 @@ def home():
 def analyze():
     if request.method == 'POST':
         text_input = request.form.get('context')
-        print(text_input)
         user_id = request.form.get('user_id')        
         validation_response = validate_text(text_input)
         if not validation_response['is_valid']:
@@ -27,14 +26,13 @@ def analyze():
                 original_text = text_input,
                 feedback = validation_response['feedback']
             )
-        
-        analysis_response = analyze_context(text_input)
+
+        prediction, score = predict_sentiment(text_input)
         return render_template(
             'feedback.html',
             is_valid = True,
             original_text = text_input,
-            sentiment = analysis_response['sentiment'],
-            score = analysis_response['score'],
-            feedback = analysis_response['feedback']
+            sentiment = prediction.capitalize(),
+            score = score,
+            feedback = "Good sentence"
         )
-    

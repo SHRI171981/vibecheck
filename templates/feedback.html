@@ -14,7 +14,6 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Same gradient as index.html for consistency */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -30,7 +29,7 @@
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 600px; /* Slightly wider to fit metrics */
+            max-width: 600px;
         }
 
         /* 3. TYPOGRAPHY */
@@ -116,7 +115,7 @@
             margin: 20px 0;
         }
 
-        /* 6. BACK LINK BUTTON */
+        /* 6. BUTTONS */
         .btn-back {
             display: block;
             width: 100%;
@@ -136,6 +135,21 @@
             color: white;
         }
 
+        /* New Speech Button Style */
+        .btn-speak {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        .btn-speak:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
@@ -153,7 +167,10 @@
             
                 <div class="error-box">
                     <h3>Reason:</h3>
-                    <p>{{ feedback }}</p>
+                    <p id="error-msg">{{ feedback }}</p>
+                    <button class="btn-speak" onclick="speakText(document.getElementById('error-msg').innerText)">
+                        🔊 Hear Reason
+                    </button>
                 </div>
 
                 <p style="text-align: center;">Please edit your text and try again.</p>
@@ -183,12 +200,33 @@
                     </div>      
                 </div>
                 
+                <div style="text-align: center;">
+                    <button class="btn-speak" onclick="speakText('The sentiment is {{ sentiment }} and the score is {{ score }} percent.')">
+                        🔊 Hear Report
+                    </button>
+                </div>
+
                 <a href="/" class="btn-back">Analyze Another</a>
             </div>
 
         {% endif %}
 
     </div>
+
+    <script>
+        function speakText(textToSpeak) {
+            // Cancel any current speech to avoid overlap
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            // Optional: Set voice properties (neutral speed)
+            utterance.rate = 1; 
+            utterance.pitch = 1;
+
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
 
 </body>
 </html>
