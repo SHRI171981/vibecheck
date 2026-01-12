@@ -1,5 +1,6 @@
 def validate_text(context):
     output = {
+        "is_valid": True, 
         "feedback": "",
         "sentiment": "",
         "score": 0,
@@ -13,16 +14,19 @@ def validate_text(context):
     context = context.split() 
     num_words = len(context)
     if num_words < MIN_LENGTH:
+        output["is_valid"] = False
         output["feedback"] = f"length is too small: {num_words}"
-        return False, output
+        return output
     if num_words > MAX_LENGTH:
+        output["is_valid"] = False
         output["feedback"] = f"Length is too large: {num_words}"
-        return False , output
+        return output
     for word in cuss_words:
         if word in context:
+            output["is_valid"] = False
             output["feedback"] = F"This should not be there: {word}"
-            return False , output
-    return True , output
+            return output
+    return output
         
 # sen = "     i dont wanna die tonight but the moon looks like the bitch im looking         "
 sen = "a s c"
