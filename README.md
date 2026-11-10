@@ -1,30 +1,41 @@
-# VibeCheck: The AI Writing Assistant
+# VibeCheck: AI Writing Assistant
 
-**VibeCheck** is a local web application that acts as a "second pair of eyes" for your writing. It analyzes text to determine its emotional tone (Sentiment) and complexity (Readability) using a custom-trained Machine Learning model.
+## Problem statement
 
-## 🚀 Key Features
-* **Custom AI Brain:** Uses a Logistic Regression model (trained on 5,000+ movie reviews) to predict Positive vs. Negative sentiment.
-* **Readability Scoring:** Mathematically calculates the grade level required to understand the text (Automated Readability Index).
-* **Smart Validation:** "The Gatekeeper" logic filters out spam, profanity, and invalid inputs before processing.
-* **Privacy First:** Works 100% offline. No data is sent to external APIs.
+Short pieces of writing, such as a message, a caption or a review, can come across differently from how you meant them. Writers want a quick second opinion on the tone of what they have written, and the tools that give one usually send your text to an online service.
 
-## 🛠️ Tech Stack
-* **Language:** Python 3.x
-* **Web Framework:** Flask
-* **Machine Learning:** Scikit-Learn (TF-IDF + Logistic Regression)
-* **Data Processing:** Pandas
-* **Frontend:** HTML5, CSS3
+## Solution
 
-## 📂 Project Architecture
-The project follows a modular "3-Layer Defense" architecture:
-1.  **`rules.py` (The Gatekeeper):** Handles input validation and security checks.
-2.  **`train_model.py` (The Gym):** A script to train the AI model and save it as a file.
-3.  **`analytics.py` (The Brain):** Loads the saved model to perform inference and calculates stats.
-4.  **`app.py` (The Interface):** Connects the backend logic to the web UI.
+A web app that reads a sentence and tells you whether it sounds positive or negative, with a confidence score. The analysis uses a machine learning model trained on movie reviews and runs entirely on your own machine, so your text never leaves it. A validation layer checks the input first, so only sensible text reaches the model.
 
-## ⚡ Setup & Installation
+## Tech stack
 
-### 1. Clone the Repository
+Python, Flask, scikit-learn (TF-IDF and Logistic Regression), Pandas, NumPy, Joblib, HTML and CSS.
+
+## Features
+
+- **Sentiment prediction** (positive or negative) with a confidence score
+- **Custom-trained model**: TF-IDF features and Logistic Regression, trained on a labelled movie review dataset
+- **Input validation**: text must be between 5 and 50 words and is rejected if it contains abusive language, with a clear message explaining why
+- **Cleaning** of leftover HTML line breaks before analysis
+- **Runs offline**: no external APIs
+- **Clear separation of concerns**: validation rules, training, inference and the web layer are separate modules
+
+## Future steps
+
+- Show a readability score and writing-style suggestions
+- Support neutral and mixed sentiment
+- Highlight the words that drove the prediction
+- Train on a wider set of text types than movie reviews
+
+## Getting started
+
 ```bash
-git clone <repository-url>
-cd vibecheck
+pip install -r requirements.txt
+
+# place a labelled dataset (review, sentiment columns) at data/dataset.csv
+python scripts/training.py        # trains and saves the model to models/
+python app.py
+```
+
+Open the local address shown in the terminal and enter a sentence.
